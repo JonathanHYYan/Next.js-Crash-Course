@@ -1,4 +1,16 @@
+import { notFound } from "next/navigation";
 import React from "react";
+
+export const dynamicParams = false;
+
+// This functions job to generate a page and route in cache for each possible extension urls
+export async function generateStaticParams() {
+  const res = await fetch('http://localhost:4000/tickets/');
+
+  const tickets = await res.json();
+
+  return tickets.map((ticket)=> ({id:ticket.id}));
+}
 
 async function getTicket(id) {
   const res = await fetch("http://localhost:4000/tickets/" + id, {
@@ -6,6 +18,10 @@ async function getTicket(id) {
       revalidate: 60, // use 0 to not cache data and have it refresh every time
     },
   });
+
+  if(!res.ok){
+    notFound();
+  }
 
   return res.json();
 }
