@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import React from "react";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 // This functions job to generate a page and route in cache for each possible extension urls
 export async function generateStaticParams() {
