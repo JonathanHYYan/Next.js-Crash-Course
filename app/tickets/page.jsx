@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import TicketList from "./TicketList";
+import Loading from "../loading";
 
 export default function Tickets() {
   return (
@@ -10,7 +12,10 @@ export default function Tickets() {
             <small>Currently open tickets.</small>
           </p>
         </div>
-      </nav><TicketList/>
+      </nav>
+      <Suspense fallback={<Loading/>}>
+        <TicketList/>
+      </Suspense>
     </main>
   );
 }
